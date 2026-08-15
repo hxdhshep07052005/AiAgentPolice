@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Build output
+dist/
+*/dist/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Data (runtime generated)
+backend/data/*.json
+!backend/data/.gitkeep
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ZCode
+.zcode/
+
+# Temporary files
+*.tmp
+*.temp
