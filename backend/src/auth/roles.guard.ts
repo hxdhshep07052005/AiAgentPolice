@@ -1,0 +1,46 @@
+import { Injectable, CanActivate, ExecutionContext, ForbiddenException } from '@nestjs/common';
+import { Reflector } from '@nestjs/core';
+
+export const ROLES_KEY = 'roles';
+
+export function Roles(...roles: string[]) {
+  return function(target: any, key?: string, descriptor?: PropertyDescriptor) {
+    if (descriptor) {
+      Reflect.defineMetadata(ROLES_KEY, roles, descriptor.value);
+    } else {
+      Reflect.defineMetadata(ROLES_KEY, roles, target);
+    }
+    return descriptor || target;
+  };
+}
+
+@Injectable()
+export class RolesGuard implements CanActivate {
+  constructor(private reflector: Reflector) {}
+
+  canActivate(context: ExecutionContext): boolean {
+    const requiredRoles = this.reflector.getAllAndOverride<string[]>(ROLES_KEY, [
+      context.getHandler(),
+      context.getClass(),
+    ]);
+
+    if (!requiredRoles) {
+      return true;
+    }
+
+    const request = context.switchToHttp().getRequest();
+    const user = request.user;
+
+    if (!user) {
+      throw new ForbiddenException('Người dùng chưa đăng nhập');
+    }
+
+    const hasRole = requiredRoles.some(role => user.role === role);
+    
+    if (!hasRole) {
+      throw new ForbiddenException(`Không có quyền. Yêu cầu vai trò: ${requiredRoles.join(' hoặc ')}`);
+    }
+
+    return true;
+  }
+}
