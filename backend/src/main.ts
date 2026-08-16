@@ -8,11 +8,13 @@ import { RolesGuard } from './auth/roles.guard';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   
-  // Enable CORS - allow all origins
+  // Enable CORS - allow all origins with dynamic origin reflection
   app.enableCors({
-    origin: true,
+    origin: (origin, callback) => {
+      callback(null, true);
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin'],
     credentials: true,
   });
   
