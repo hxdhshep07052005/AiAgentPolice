@@ -362,6 +362,11 @@ export default function CaseDetail() {
               <span><Icons.Calendar size={14} /> {new Date(caseData.createdAt).toLocaleDateString('vi-VN')}</span>
               <span><Icons.User size={14} /> {caseData.createdBy === currentUser?.id ? 'Bạn' : 'Lãnh đạo'}</span>
             </div>
+            {caseData.description && (
+              <div className="case-description">
+                <p>{caseData.description}</p>
+              </div>
+            )}
           </div>
         </div>
         <div className="case-header-right">
