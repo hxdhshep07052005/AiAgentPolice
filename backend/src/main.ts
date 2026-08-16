@@ -8,9 +8,9 @@ import { RolesGuard } from './auth/roles.guard';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   
-  // Enable CORS
+  // Enable CORS - allow all origins for deployment
   app.enableCors({
-    origin: ['http://localhost:3000', 'http://localhost:5173'],
+    origin: '*',
     credentials: true,
   });
   
