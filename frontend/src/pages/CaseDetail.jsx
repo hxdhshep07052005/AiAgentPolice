@@ -287,7 +287,7 @@ export default function CaseDetail() {
 
   const handleToggleTask = async (userId, taskId, currentStatus) => {
     try {
-      await api.put(`/cases/${caseId}/tasks/${taskId}?userId=${userId}&completed=${!currentStatus}`, {})
+      await api.put(`/cases/${caseId}/tasks/${taskId}?userId=${userId}`, { completed: !currentStatus })
       await loadCase()
       await refreshCases() // Refresh context to update Dashboard
     } catch (error) { console.error('Error toggling task:', error) }
