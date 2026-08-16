@@ -1,4 +1,4 @@
-const API_BASE = '/api'
+const API_BASE = 'https://pretty-reprieve-production-d186.up.railway.app/api'
 
 async function request(endpoint, options = {}) {
   const url = `${API_BASE}${endpoint}`
