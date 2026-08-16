@@ -10,10 +10,10 @@ async function bootstrap() {
   
   // Enable CORS - allow all origins
   app.enableCors({
-    origin: '*',
+    origin: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
-    credentials: false,
+    credentials: true,
   });
   
   // Global validation pipe
