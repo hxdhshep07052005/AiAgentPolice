@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: ai-agent-police-backend
+    env: node
+    region: singapore
+    buildCommand: cd backend && npm install && npm run build
+    startCommand: cd backend && node dist/main.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
